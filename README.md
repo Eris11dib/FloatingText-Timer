@@ -3,8 +3,9 @@ a configurabile timer spawned in a floating text
 
 Works with:
 
--1.4
--1.5
+- 1.4
+
+- 1.5
 
 ```yaml
 ---
