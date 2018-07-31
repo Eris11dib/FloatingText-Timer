@@ -1,1 +1,6 @@
-
+name: FT-Timer
+main: FTTimer\FT
+api: [3.0.0]
+author: Eris11dib
+description: FTTimer 
+version: 0.0.1
