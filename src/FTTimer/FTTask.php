@@ -5,29 +5,49 @@ namespace FTTimer;
 use pocketmine\level\particle\FloatingTextParticle;
 use pocketmine\scheduler\Task;
 use pocketmine\Player;
+use pocketmine\utils\Config;
 
-class FTTask extends Task{
-	
-	public $player;
-	public $fttemp;
-	public $levels;
-	public $countdown;
-	
-	public function __construct(FT $ft){
-		$this->ft = $ft;
-		$this->countdown = $this->ft->ftcfg->get("countdown_seconds");
-		$this->fttemp = new FloatingTextParticle($this->ft->getServer()->getLevelByName($this->ft->ftcfg->get("spawn_timer_world"))->getSpawnLocation(),"","§7---[§6Timer§7]---§r");
-	}
-		public function onRun($tick){
-			foreach($this->ft->getServer()->getOnlinePlayers() as $player){
-				$this->fttemp->setText("§cMancano esattamente§r " . $this->countdown . " §csecondi " . $this->ft->ftcfg->get("motivation"));
-				$this->ft->getServer()->getLevelByName($this->ft->ftcfg->get("spawn_timer_world"))->addParticle($this->fttemp,[$player]);
-			if($this->countdown === 0){
-				$this->countdown = $this->ft->ftcfg->get("countdown_seconds");
-				}
-			}
-			$this->countdown--;
-		}
-	}
+class FTTask extends Task
+{
 
-?>
+    /** @var FT $ft */
+    public $ft;
+    /** @var $countdown */
+    public $countdown;
+    /** @var Player $player */
+    public $player;
+
+    public function __construct(FT $ft, Player $player)
+    {
+        $this->ft = $ft;
+        $this->player = $player;
+        $this->countdown = $this->getFt()->getConfig()->get("countdown_seconds");
+    }
+
+    public function onRun(int $tick)
+    {
+        $this->getFt()->text->setText("§cMancano esattamente§r " . $this->countdown . " §csecondi " . $this->getFt()->getConfig()->get("motivation"));
+        $this->getFt()->getServer()->getLevelByName($this->getFt()->getConfig()->get("spawn_timer_world"))->addParticle($this->getFt()->text, [$this->getPlayer()]);
+        if ($this->countdown === 0) {
+            $this->countdown = $this->getFt()->getConfig()->get("countdown_seconds");
+        }
+        $this->countdown--;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    /**
+     * @return FT
+     */
+    public function getFt(): FT
+    {
+        return $this->ft;
+    }
+}
+
