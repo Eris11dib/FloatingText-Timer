@@ -28,17 +28,18 @@ class FT extends PluginBase implements Listener
 
     public function onEnable()
     {
+        @mkdir($this->getDataFolder());
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML, [
+            "countdown_seconds" => 60,
+            "motivation" => "all'Evento",
+            "spawn_timer_world" => null,
+        ]);
         if (!$this->getServer()->isLevelLoaded($this->getConfig()->get("spawn_timer_world"))) {
             $this->getLogger()->info("Vai sul config a definire il nome del mondo! il plugin è stato disabilitato");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         } else {
             $this->getLogger()->info("§6Activated");
-            $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML, [
-                "countdown_seconds" => 60,
-                "motivation" => "all'Evento",
-                "spawn_timer_world" => null,
-            ]);
             $this->text = new FloatingTextParticle($this->getServer()->getLevelByName($this->getConfig()->get("spawn_timer_world"))->getSpawnLocation(), "", "§7---[§6Timer§7]---§r");
         }
     }
