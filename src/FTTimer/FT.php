@@ -46,9 +46,9 @@ class FT extends PluginBase implements Listener
     	$player = $event->getPlayer();
     	if ($player instanceof Player || $player->getLevel()->getName() == $this->getConfig()->get("spawn_timer_world")){
             $this->text->setInvisible(false);
-            $player->getLevel()->addParticle($this->text, [$player]);
+            $this->getServer()->getLevelByName($this->getConfig()->get("spawn_timer_world"))->addParticle($this->text, [$player]);
 		}
-        $this->getScheduler()->scheduleRepeatingTask(new FTTask($this), 20);
+        $this->getScheduler()->scheduleRepeatingTask(new FTTask($this, $player), 20);
     }
 
     /**
@@ -59,10 +59,10 @@ class FT extends PluginBase implements Listener
         $player = $event->getEntity();
         if ($player instanceof Player || $player->getLevel()->getName() == $this->getConfig()->get("spawn_timer_world")) {
             $this->text->setInvisible(false);
-            $player->getLevel()->addParticle($this->text, [$player]);
+            $this->getServer()->getLevelByName($this->getConfig()->get("spawn_timer_world"))->addParticle($this->text, [$player]);
         } else {
             $this->text->setInvisible(true);
-            $player->getLevel()->addParticle($this->text, [$player]);
+            $this->getServer()->getLevelByName($this->getConfig()->get("spawn_timer_world"))->addParticle($this->text, [$player]);
         }
     }
 
