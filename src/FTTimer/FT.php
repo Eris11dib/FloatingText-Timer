@@ -29,7 +29,7 @@ class FT extends PluginBase implements Listener
     public function onEnable()
     {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        if ($this->getServer()->isLevelLoaded($this->getConfig()->get("spawn_timer_world"))) {
+        if (!$this->getServer()->isLevelLoaded($this->getConfig()->get("spawn_timer_world"))) {
             $this->getLogger()->info("Vai sul config a definire il nome del mondo! il plugin è stato disabilitato");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         } else {
