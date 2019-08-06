@@ -36,7 +36,7 @@ class FT extends PluginBase implements Listener
             "spawn_timer_world" => null,
         ]);
         if (!$this->getServer()->isLevelLoaded($this->getConfig()->get("spawn_timer_world"))) {
-            $this->getLogger()->info("Vai sul config a definire il nome del mondo! il plugin è stato disabilitato");
+            $this->getLogger()->info("Go define the World where the timer will be in the config");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         } else {
             $this->getLogger()->info("§6Activated");
