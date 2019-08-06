@@ -26,7 +26,7 @@ class FTTask extends Task
 
     public function onRun(int $tick)
     {
-        $this->getFt()->text->setText("§cMancano esattamente§r " . $this->countdown . " §csecondi " . $this->getFt()->getConfig()->get("motivation"));
+        $this->getFt()->text->setText("§cRemain§r " . $this->countdown . " §cseconds " . $this->getFt()->getConfig()->get("motivation"));
         $this->getFt()->getServer()->getLevelByName($this->getFt()->getConfig()->get("spawn_timer_world"))->addParticle($this->getFt()->text, [$this->getPlayer()]);
         if ($this->countdown === 0) {
             $this->countdown = $this->getFt()->getConfig()->get("countdown_seconds");
