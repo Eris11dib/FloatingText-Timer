@@ -1,7 +1,6 @@
 <?php
 
 namespace FTTimer;
-
 use pocketmine\level\particle\FloatingTextParticle;
 use pocketmine\scheduler\Task;
 use pocketmine\Player;
